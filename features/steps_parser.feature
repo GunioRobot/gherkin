@@ -3,7 +3,7 @@ Feature: Gherkin Steps parser
   As a Cucumber developer
   I want a steps parser to make writing compound steps easier
 
-  Background: 
+  Background:
     Given a "ruby" "steps" parser
 
   Scenario: Parsing steps

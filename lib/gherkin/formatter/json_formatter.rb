@@ -6,32 +6,32 @@ module Gherkin
   module Formatter
     class JSONFormatter
       include Rubify
-      
+
       def initialize(io)
         @io = io
       end
 
       def feature(comments, tags, keyword, name, description, uri)
         @json_hash = {
-          'comments' => comments.to_a, 
-          'tags' => tags.to_a, 
-          'keyword' => keyword, 
-          'name' => name, 
-          'description' => description, 
+          'comments' => comments.to_a,
+          'tags' => tags.to_a,
+          'keyword' => keyword,
+          'name' => name,
+          'description' => description,
           'uri' => uri
         }
       end
 
       def background(comments, keyword, name, description, line)
         background = {
-          'comments' => comments.to_a, 
-          'keyword' => keyword, 
-          'name' => name, 
+          'comments' => comments.to_a,
+          'keyword' => keyword,
+          'name' => name,
           'description' => description,
           'line' => line,
           'steps' => [],
         }
-        @json_hash['background'] = background 
+        @json_hash['background'] = background
         @in_background = true
       end
 
@@ -64,10 +64,10 @@ module Gherkin
 
       def element_hash(comments, tags, keyword, name, description, line, type=nil)
         element = {
-          'comments' => comments.to_a, 
-          'tags' => tags.to_a, 
-          'keyword' => keyword, 
-          'name' => name, 
+          'comments' => comments.to_a,
+          'tags' => tags.to_a,
+          'keyword' => keyword,
+          'name' => name,
           'description' => description,
           'line' => line,
         }

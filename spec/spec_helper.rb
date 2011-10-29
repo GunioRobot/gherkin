@@ -57,5 +57,5 @@ end
 RSpec::Matchers.define :allow do |event|
   match do |parser|
     parser.expected.index(event)
-  end  
+  end
 end

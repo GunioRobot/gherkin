@@ -14,7 +14,7 @@ namespace Gherkin
 	{
 		public static void Main (string[] args)
 		{
-			try 
+			try
 			{
 				java.io.Writer output = new TextWriterAdapter(Console.Out);
 				Parser parser = new Parser(new PrettyFormatter(output, true));

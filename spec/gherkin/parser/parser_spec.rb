@@ -15,8 +15,8 @@ module Gherkin
       end
 
       it "should raise helpful error messages by default" do
-        lambda { 
-          @parser.scenario("Scenario", "My pet scenario", "", 12) 
+        lambda {
+          @parser.scenario("Scenario", "My pet scenario", "", 12)
         }.should raise_error(/Parse error on line 12\. Found scenario when expecting one of: comment, feature, tag\. \(Current state: root\)\.$/)
       end
 

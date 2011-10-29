@@ -31,7 +31,7 @@ Feature: Feature Text
       |g|h|
       |e|r|
       |k|i|
-      |n|| 
+      |n||
     And I am done testing these tables
     #Comment on line 29
     Then I am happy

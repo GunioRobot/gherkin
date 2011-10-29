@@ -38,7 +38,7 @@
   if (NAME == NULL) { \
     rb_raise(rb_eArgError, "NULL found for " # NAME " when it shouldn't be."); \
   }
- 
+
 typedef struct lexer_state {
   int content_len;
   int line_number;
@@ -82,12 +82,12 @@ static VALUE rb_eGherkinLexingError;
 
 %%{
   machine lexer;
- 
+
   action begin_content {
 		MARK(content_start, p);
     lexer->current_line = lexer->line_number;
   }
-  
+
   action begin_pystring_content {
     MARK(content_start, p);
   }
@@ -96,74 +96,74 @@ static VALUE rb_eGherkinLexingError;
     lexer->current_line = lexer->line_number;
     lexer->start_col = p - data - lexer->last_newline;
   }
- 
+
   action store_pystring_content {
     int len = LEN(content_start, PTR_TO(final_newline));
 
     if (len < 0) len = 0;
 
     store_pystring_content(listener, lexer->start_col, PTR_TO(content_start), len, lexer->current_line);
-  } 
- 
+  }
+
   action store_feature_content {
     STORE_KW_END_CON(feature);
   }
-  
+
   action store_background_content {
     STORE_KW_END_CON(background);
   }
-  
+
   action store_scenario_content {
     STORE_KW_END_CON(scenario);
   }
-  
+
   action store_scenario_outline_content {
     STORE_KW_END_CON(scenario_outline);
   }
-  
+
   action store_examples_content {
     STORE_KW_END_CON(examples);
   }
-  
+
   action store_step_content {
     store_kw_con(listener, "step",
       PTR_TO(keyword_start), LEN(keyword_start, PTR_TO(keyword_end)),
-      PTR_TO(content_start), LEN(content_start, p), 
+      PTR_TO(content_start), LEN(content_start, p),
       lexer->current_line);
   }
-  
+
   action store_comment_content {
     STORE_ATTR(comment);
     lexer->mark = 0;
   }
-  
+
   action store_tag_content {
     STORE_ATTR(tag);
     lexer->mark = 0;
   }
-  
+
   action inc_line_number {
     lexer->line_number += 1;
     MARK(final_newline, p);
   }
-    
+
   action last_newline {
     MARK(last_newline, p + 1);
   }
- 
+
   action start_keyword {
     if (lexer->mark == 0) {
       MARK(mark, p);
     }
   }
-  
+
   action end_keyword {
     MARK(keyword_end, p);
     MARK(keyword_start, PTR_TO(mark));
     MARK(content_start, p + 1);
     lexer->mark = 0;
   }
-  
+
   action next_keyword_start {
     MARK(content_end, p);
   }
@@ -173,7 +173,7 @@ static VALUE rb_eGherkinLexingError;
     lexer->current_line = lexer->line_number;
     current_row = rb_ary_new();
   }
-  
+
   action begin_cell_content {
 		MARK(content_start, p);
   }
@@ -208,7 +208,7 @@ static VALUE rb_eGherkinLexingError;
           buff = data;
         }
 
-        char newstr[len]; 
+        char newstr[len];
 
         for (count = 0; count < len; count++) {
           if(buff[count] == 10) {
@@ -234,44 +234,44 @@ static VALUE rb_eGherkinLexingError;
     }
   }
 
-  include lexer_common "lexer_common.<%= @i18n.underscored_iso_code %>.rl";   
+  include lexer_common "lexer_common.<%= @i18n.underscored_iso_code %>.rl";
 
 }%%
 
 /** Data **/
 %% write data;
 
-static VALUE 
+static VALUE
 strip_i(VALUE str, VALUE ary)
 {
   rb_funcall(str, rb_intern("strip!"), 0);
   rb_ary_push(ary, str);
-  
+
   return Qnil;
 }
 
-static VALUE 
+static VALUE
 multiline_strip(VALUE text)
 {
   VALUE map = rb_ary_new();
   VALUE split = rb_str_split(text, "\n");
-  
+
   rb_iterate(rb_each, split, strip_i, map);
-  
+
   return split;
 }
 
-static void 
-store_kw_con(VALUE listener, const char * event_name, 
-             const char * keyword_at, size_t keyword_length, 
-             const char * at,         size_t length, 
+static void
+store_kw_con(VALUE listener, const char * event_name,
+             const char * keyword_at, size_t keyword_length,
+             const char * at,         size_t length,
              int current_line)
 {
   VALUE con = Qnil, kw = Qnil;
   kw = ENCODED_STR_NEW(keyword_at, keyword_length);
   con = ENCODED_STR_NEW(at, length);
   rb_funcall(con, rb_intern("strip!"), 0);
-  rb_funcall(listener, rb_intern(event_name), 3, kw, con, INT2FIX(current_line)); 
+  rb_funcall(listener, rb_intern(event_name), 3, kw, con, INT2FIX(current_line));
 }
 
 static void
@@ -286,43 +286,43 @@ store_multiline_kw_con(VALUE listener, const char * event_name,
   con = ENCODED_STR_NEW(at, length);
 
   VALUE split = multiline_strip(con);
-  
+
   name = rb_funcall(split, rb_intern("shift"), 0);
   desc = rb_ary_join(split, rb_str_new2( \
           eol == CRLF_FLAG ? CRLF : LF ));
 
-  if( name == Qnil ) 
+  if( name == Qnil )
   {
     name = rb_str_new2("");
   }
-  if( rb_funcall(desc, rb_intern("size"), 0) == 0) 
+  if( rb_funcall(desc, rb_intern("size"), 0) == 0)
   {
     desc = rb_str_new2("");
   }
   rb_funcall(name, rb_intern("strip!"), 0);
   rb_funcall(desc, rb_intern("strip!"), 0);
-  rb_funcall(listener, rb_intern(event_name), 4, kw, name, desc, INT2FIX(current_line)); 
+  rb_funcall(listener, rb_intern(event_name), 4, kw, name, desc, INT2FIX(current_line));
 }
 
-static void 
+static void
 store_attr(VALUE listener, const char * attr_type,
-           const char * at, size_t length, 
+           const char * at, size_t length,
            int line)
 {
   VALUE val = ENCODED_STR_NEW(at, length);
   rb_funcall(listener, rb_intern(attr_type), 2, val, INT2FIX(line));
 }
 
-static void 
-store_pystring_content(VALUE listener, 
-          int start_col, 
-          const char *at, size_t length, 
+static void
+store_pystring_content(VALUE listener,
+          int start_col,
+          const char *at, size_t length,
           int current_line)
 {
   VALUE con = ENCODED_STR_NEW(at, length);
   // Gherkin will crash gracefully if the string representation of start_col pushes the pattern past 32 characters
-  char pat[32]; 
-  snprintf(pat, 32, "^[\t ]{0,%d}", start_col); 
+  char pat[32];
+  snprintf(pat, 32, "^[\t ]{0,%d}", start_col);
   VALUE re = rb_reg_regcomp(rb_str_new2(pat));
   VALUE re2 = rb_reg_regcomp(rb_str_new2("\r\\Z"));
   VALUE unescape_escaped_quotes = rb_reg_regcomp(rb_str_new2("\\\\\"\\\\\"\\\\\""));
@@ -332,13 +332,13 @@ store_pystring_content(VALUE listener,
   rb_funcall(listener, rb_intern("py_string"), 2, con, INT2FIX(current_line));
 }
 
-static void 
+static void
 raise_lexer_error(const char * at, int line)
-{ 
+{
   rb_raise(rb_eGherkinLexingError, "Lexing error on line %d: '%s'. See http://wiki.github.com/aslakhellesoy/gherkin/lexingerror for more information.", line, at);
 }
 
-static int 
+static int
 count_char(char char_to_count, char *str) {
 
   int count = 0;
@@ -381,11 +381,11 @@ static VALUE CLexer_alloc(VALUE klass)
 static VALUE CLexer_init(VALUE self, VALUE listener)
 {
   rb_iv_set(self, "@listener", listener);
-  
+
   lexer_state *lxr = NULL;
   DATA_GET(self, lexer_state, lxr);
   lexer_init(lxr);
-  
+
   return self;
 }
 
@@ -402,33 +402,33 @@ static VALUE CLexer_scan(VALUE self, VALUE input, VALUE uri, VALUE offset)
   rb_str_append(input_copy, rb_str_new2("\n%_FEATURE_END_%"));
   char *data = RSTRING_PTR(input_copy);
   size_t len = RSTRING_LEN(input_copy);
-  
+
   if (count_char('\r', data) > (count_char('\n', data) / 2)) {
     lexer->eol = CRLF_FLAG;
   }
-  
-  if (len == 0) { 
+
+  if (len == 0) {
     rb_raise(rb_eGherkinLexingError, "No content to lex.");
   } else {
 
     const char *p, *pe, *eof;
     int cs = 0;
-    
+
     VALUE current_row = Qnil;
 
     p = data;
     pe = data + len;
     eof = pe;
-    
+
     assert(*pe == '\0' && "pointer does not end on NULL");
-    
+
     %% write init;
     %% write exec;
 
     assert(p <= pe && "data overflow after parsing execute");
     assert(lexer->content_start <= len && "content starts after data end");
     assert(lexer->mark < len && "mark is after data end");
-    
+
     // Reset lexer by re-initializing the whole thing
     lexer_init(lexer);
 

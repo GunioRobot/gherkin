@@ -13,7 +13,7 @@ module Gherkin
         @fl = Gherkin::Listener::FormatterListener.new(@formatter)
         @lexer = Gherkin::I18nLexer.new(Gherkin::Parser::Parser.new(@fl))
       end
-      
+
       it "should pass tags to #feature method" do
         @fl.tag("@hello", 1)
         @fl.feature("Feature", "awesome", "description", 2)
@@ -62,7 +62,7 @@ module Gherkin
 
         @formatter.to_sexp.should == [
           [:step, [], "Given ",  "foo", 10, [
-            {"line"=>11, "comments"=>[], "cells"=>["yo"]}, 
+            {"line"=>11, "comments"=>[], "cells"=>["yo"]},
             {"line"=>14, "comments"=>["# Hello", "# World"], "cells"=>["bro"]}
           ], nil, nil, nil, nil],
           [:eof]
@@ -89,12 +89,12 @@ module Gherkin
               "comments" => [],
               "line" => 27,
               "cells" => ["a", "b"]
-            }, 
+            },
             {
               "comments" => [],
               "line" => 28,
               "cells" => ["c", "d"]
-            }, 
+            },
             {
               "comments" => [],
               "line" => 29,
@@ -105,17 +105,17 @@ module Gherkin
               "comments" => [],
               "line" => 31,
               "cells" => ["g", "h"]
-            }, 
+            },
             {
               "comments" => [],
               "line" => 32,
               "cells" => ["e", "r"]
-            }, 
+            },
             {
               "comments" => [],
               "line" => 33,
               "cells" => ["k", "i"]
-            }, 
+            },
             {
               "comments" => [],
               "line" => 34,

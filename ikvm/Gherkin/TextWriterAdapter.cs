@@ -12,12 +12,12 @@ namespace Gherkin
 	class TextWriterAdapter: java.io.Writer
 	{
 		private TextWriter output;
-		
+
 		public TextWriterAdapter(TextWriter output)
 		{
 			this.output = output;
 		}
-		
+
 		public override void flush()
 		{
 			output.Flush();
@@ -28,9 +28,9 @@ namespace Gherkin
 			output.Close();
 		}
 
-		public override void write(char[] chars, int off, int length) 
+		public override void write(char[] chars, int off, int length)
 		{
-			for(int p = off; p < off+length; p++) 
+			for(int p = off; p < off+length; p++)
 			{
 				output.Write(chars[p]);
 			}

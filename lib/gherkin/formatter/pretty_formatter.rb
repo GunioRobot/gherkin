@@ -57,7 +57,7 @@ module Gherkin
 
       def step(comments, keyword, name, line, multiline_arg, status, exception, arguments, stepdef_location)
         status_param = "#{status}_param" if status
-        name = Gherkin::Formatter::Argument.format(name, @format, (arguments || [])) 
+        name = Gherkin::Formatter::Argument.format(name, @format, (arguments || []))
 
         step = "#{keyword}#{name}"
         step = self.__send__(status, step, @monochrome) if status
@@ -90,8 +90,8 @@ module Gherkin
       end
 
       def table(rows)
-        cell_lengths = rows.map do |row| 
-          row.cells.map do |cell| 
+        cell_lengths = rows.map do |row|
+          row.cells.map do |cell|
             escape_cell(cell).unpack("U*").length
           end
         end

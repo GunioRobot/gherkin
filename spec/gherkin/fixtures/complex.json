@@ -7,7 +7,7 @@
   ],
   "background" : {
     "description": "",
-    "name": "", 
+    "name": "",
     "keyword": "Background",
     "steps": [
       { "name": "this is a background step",
@@ -34,7 +34,7 @@
         }
       ],
       "examples": [
-        { "name": "Sweet Example", 
+        { "name": "Sweet Example",
           "keyword": "Examples",
           "description": "",
           "table" : [
@@ -109,10 +109,10 @@
     },
     { "type" : "scenario",
       "keyword": "Scenario",
-      "name" : "Hammerzeit", 
+      "name" : "Hammerzeit",
       "description": "",
       "steps" : [
-        { "name" : "All work and no play", 
+        { "name" : "All work and no play",
           "keyword": "Given ",
           "py_string" : "Makes Homer something something\nAnd something else" },
         { "name" : "crazy",

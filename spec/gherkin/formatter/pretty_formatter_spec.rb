@@ -13,7 +13,7 @@ module Gherkin
         actual = @io.string
         actual.should == s
       end
-      
+
       def assert_pretty(input, output=input)
         [true, false].each do |force_ruby|
           io = StringIO.new

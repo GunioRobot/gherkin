@@ -62,7 +62,7 @@ Feature: JSON formatter
         Scenario Outline: with
           # all
           Then nice
-          
+
         # comments
         # everywhere
         Examples: An example
@@ -247,7 +247,7 @@ Feature: JSON formatter
           Given I Google it
 
         # Writing JSON by hand sucks
-        Scenario: 
+        Scenario:
           Then I think it means "fast"
       """
     Then the outputted JSON should be:
@@ -295,4 +295,4 @@ Feature: JSON formatter
         ]
       }
       """
-    
+

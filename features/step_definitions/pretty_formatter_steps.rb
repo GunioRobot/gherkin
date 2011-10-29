@@ -28,10 +28,10 @@ module PrettyPlease
     formatter_listener  = Gherkin::Listener::FormatterListener.new(pretty_formatter)
     json_lexer          = Gherkin::JSONLexer.new(formatter_listener)
     json_lexer.scan(json.string)
-    
+
     result.string
   end
-  
+
   def scan(lexer, gherkin, feature_path)
     begin
       lexer.scan(gherkin, feature_path, 0)

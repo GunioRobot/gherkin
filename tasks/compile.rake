@@ -94,7 +94,7 @@ EOF
   end
   rescue LoadError
     unless defined?($c_warned)
-      warn "WARNING: Rake::ExtensionTask not installed. Skipping C compilation." 
+      warn "WARNING: Rake::ExtensionTask not installed. Skipping C compilation."
       $c_warned = true
       task :compile # no-op
     end

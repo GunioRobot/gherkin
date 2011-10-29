@@ -14,7 +14,7 @@ module Gherkin
         @lexer = Gherkin::I18nLexer.new(fl)
 
         @lexer.scan(File.new(File.dirname(__FILE__) + "/../fixtures/complex_with_tags.feature").read, "complex.feature", 0)
-        
+
         @formatter.tag_counts.should == {
           "@hamster" => ["complex.feature:58"],
           "@tag1"    => ["complex.feature:18","complex.feature:23","complex.feature:39","complex.feature:52","complex.feature:58"],

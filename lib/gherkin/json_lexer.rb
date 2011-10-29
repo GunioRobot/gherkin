@@ -21,7 +21,7 @@ module Gherkin
       end
 
       feature["elements"].each do |feature_element|
-        parse_element(feature_element) 
+        parse_element(feature_element)
       end if feature["elements"]
 
       @listener.eof
@@ -70,7 +70,7 @@ module Gherkin
       element["steps"].each do |step|
         comments_for(step)
         @listener.step(step["keyword"], step["name"], line_for(step))
-        py_string_for(step)    
+        py_string_for(step)
         rows_for(step)
       end
     end
@@ -95,7 +95,7 @@ module Gherkin
     end
 
     def multiline_event(type, element)
-      if element["keyword"] 
+      if element["keyword"]
         @listener.__send__(type, element["keyword"], element["name"] || "", element["description"] || "", line_for(element))
       end
     end

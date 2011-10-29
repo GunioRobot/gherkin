@@ -301,7 +301,7 @@ Feature: JSON lexer
           Given I Google it
 
         # Writing JSON by hand sucks
-        Scenario: 
+        Scenario:
           Then I think it means "fast"
       """
-    
+

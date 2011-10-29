@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'gherkin/json_lexer'
 
 module Gherkin
-  describe JSONLexer do 
+  describe JSONLexer do
 
     before do
       @listener = Gherkin::SexpRecorder.new
@@ -82,7 +82,7 @@ module Gherkin
           [:row, %w{g h}, 0],
           [:row, %w{e r}, 0],
           [:row, %w{k i}, 0],
-          [:row, ['n', ''], 0], 
+          [:row, ['n', ''], 0],
           [:step, "Given ", "I am done testing these tables", 0],
           [:step, "Given ", "I am happy", 0],
           [:scenario, "Scenario", "Hammerzeit", "", 0],
@@ -91,7 +91,7 @@ module Gherkin
           [:step, "Given ", "crazy", 0],
           [:eof]
         ]
-      end        
+      end
     end
   end
 end

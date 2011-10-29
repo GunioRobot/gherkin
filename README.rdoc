@@ -43,7 +43,7 @@ I didn't want to install macports (I'm on homebrew) and I couldn't figure out ho
 http://crossgcc.rts-software.org/doku.php - just add the bin folder to your PATH
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Run rake ragel:rb to generate all the I18N lexers
 * Make your feature addition or bug fix.

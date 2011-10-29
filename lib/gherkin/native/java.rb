@@ -4,8 +4,8 @@ class Class
     # no-op
   end
 
-  # Causes a Java class to be instantiated instead of the Ruby class when 
-  # running on JRuby. This is used to test both pure Java and pure Ruby classes 
+  # Causes a Java class to be instantiated instead of the Ruby class when
+  # running on JRuby. This is used to test both pure Java and pure Ruby classes
   # from the same Ruby based test suite. The Java Class must have a package name
   # that corresponds with the Ruby class.
   def native_impl(lib)

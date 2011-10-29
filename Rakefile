@@ -43,7 +43,7 @@ begin
       gem.files += FileList['ext/**/*.c']
       gem.extensions = FileList['ext/**/extconf.rb']
     end
-    
+
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

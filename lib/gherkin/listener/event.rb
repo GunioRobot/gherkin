@@ -8,7 +8,7 @@ module Gherkin
       def keyword
         self[1]
       end
-      
+
       def line_match?(lines)
         lines.include?(line)
       end

@@ -31,7 +31,7 @@ Feature: Feature Text
       |g|h|
       |e|r|
       |k|i|
-      |n|| 
+      |n||
     And I am done testing these tables
     #Comment on line 29
     Then I am happy
@@ -47,13 +47,13 @@ Feature: Feature Text
   @more
   Scenario Outline: More
     Given Some <whaaa>
-    
+
     @neat
     Examples: Neato
       |whaa|
       |neat|
       |beat|
-    
+
     @hamster
     Examples: Rodents
       |whaa|

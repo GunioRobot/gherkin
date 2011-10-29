@@ -2,7 +2,7 @@ module Gherkin
   module Formatter
     class TagCountFormatter
       attr_reader :tag_counts
-      
+
       def initialize(formatter)
         @formatter = formatter
         @tag_counts = Hash.new{|hash, tag| hash[tag] = []}

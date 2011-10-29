@@ -9,7 +9,7 @@ module Gherkin
       def initialize(byte_offset, val)
         @byte_offset, @val = byte_offset, val
       end
-      
+
       def self.format(string, argument_format, arguments)
         s = string.dup
         offset = past_offset = 0

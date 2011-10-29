@@ -6,7 +6,7 @@ Fonctionnalité: Addition
     Et qu'on tape <b>
     Lorsqu'on tape additionner
     Alors le résultat doit être <somme>
- 
+
     Exemples:
       | a | b | somme |
       | 2 | 2 | 4     |

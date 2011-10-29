@@ -4,7 +4,7 @@ require 'gherkin/listener/row'
 module Gherkin
   class SexpRecorder
     include Rubify
-    
+
     def initialize
       @sexps = []
     end

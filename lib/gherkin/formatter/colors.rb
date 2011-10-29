@@ -78,7 +78,7 @@ module Gherkin
           eval(code)
         end
       end
-    
+
       def self.define_grey #:nodoc:
         begin
           gem 'genki-ruby-terminfo'
@@ -106,13 +106,13 @@ module Gherkin
           end
         end
       end
-    
+
       def self.define_real_grey #:nodoc:
         def grey(m) #:nodoc:
           "\e[90m#{m}\e[0m"
         end
       end
-    
+
       define_grey
     end
   end

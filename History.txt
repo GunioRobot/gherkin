@@ -207,7 +207,7 @@ which calls for a new major version.
 * .NET resource files are now automatically copied into the .dll (#46 Aslak Hellesøy)
 
 === New features
-* The Pure Java implementation now has a simple main method that pretty prints a feature. (#39 Aslak Hellesøy) 
+* The Pure Java implementation now has a simple main method that pretty prints a feature. (#39 Aslak Hellesøy)
 * Writing code generated i18n syntax highlighters for Gherkin is a lot easier thanks to several convenience methods in Gherkin::I18n. (Aslak Hellesøy)
 * .NET (C#) port (#36, #37 Attila Sztupak)
 * Tables parsed and sent by row rather than by table. (Mike Sassak)

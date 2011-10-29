@@ -28,7 +28,7 @@ module Gherkin
       # there is typically a code generation tool to generate regular expressions for recognising the
       # various I18n translations of Gherkin's keywords.
       #
-      # The +keywords+ arguments can be one of <tt>:feature</tt>, <tt>:background</tt>, <tt>:scenario</tt>, 
+      # The +keywords+ arguments can be one of <tt>:feature</tt>, <tt>:background</tt>, <tt>:scenario</tt>,
       # <tt>:scenario_outline</tt>, <tt>:examples</tt>, <tt>:step</tt>.
       def keyword_regexp(*keywords)
         unique_keywords = all.map do |i18n|
@@ -40,7 +40,7 @@ module Gherkin
             end
           end
         end
-        
+
         unique_keywords.flatten.compact.map{|kw| kw.to_s}.sort.reverse.uniq.join('|').gsub(/\*/, '\*')
       end
 
@@ -154,14 +154,14 @@ module Gherkin
       gherkin_keyword_table = KEYWORD_KEYS.map do |key|
         Listener::Row.new([key, keywords(key).map{|keyword| %{"#{keyword}"}}.join(', ')], [], nil)
       end
-      
+
       code_keyword_table = STEP_KEYWORD_KEYS.map do |key|
         code_keywords = keywords(key).reject{|keyword| keyword == '* '}.map do |keyword|
           %{"#{self.class.code_keyword_for(keyword)}"}
         end.join(', ')
         Listener::Row.new(["#{key} (code)", code_keywords], [], nil)
       end
-      
+
       pf.table(gherkin_keyword_table + code_keyword_table)
       io.rewind
       io.read

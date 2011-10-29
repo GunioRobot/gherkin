@@ -7,7 +7,7 @@ module Gherkin
     # This class filters events based on filter criteria.
     class FilterListener
       native_impl('gherkin')
-    
+
       # Creates a new instance that replays events to +listener+, filtered by +filters+,
       # an Array that can contain one of the following:
       #
@@ -18,7 +18,7 @@ module Gherkin
       def initialize(listener, filters)
         @listener = listener
         @filter_method = detect_filter(filters)
-        
+
         @meta_buffer = []
         @feature_buffer = []
         @scenario_buffer = []
@@ -147,11 +147,11 @@ module Gherkin
         @filters = filters
         raise "Bad filter: #{filters.inspect}" if filters.map{|filter| filter.class}.uniq.length > 1
         @filter_method = case(filters[0])
-        when Fixnum 
+        when Fixnum
           :line_match?
-        when Regexp 
+        when Regexp
           :name_match?
-        when String 
+        when String
           TagExpression.new(filters)
         end
       end
@@ -163,7 +163,7 @@ module Gherkin
       def header_row_already_buffered?
         return @examples_buffer.any? && @examples_buffer[-1].event == :row
       end
-      
+
       def filter_match?(*events)
         return false unless[:name_match?, :line_match?].include?(@filter_method)
         events.detect{|event| event.__send__(@filter_method, @filters)}
@@ -174,11 +174,11 @@ module Gherkin
       end
 
       def replay_buffers
-        (@feature_buffer + @scenario_buffer).each do |event| 
+        (@feature_buffer + @scenario_buffer).each do |event|
           event.replay(@listener)
         end
         @feature_buffer = []
-        @scenario_buffer = [] 
+        @scenario_buffer = []
       end
 
       def replay_examples_rows_buffer
@@ -190,7 +190,7 @@ module Gherkin
           @examples_rows_buffer = []
         end
       end
-      
+
       def current_tags
         @feature_tags + @scenario_tags + @example_tags
       end

@@ -23,7 +23,7 @@ public class <%= @i18n.underscored_iso_code.upcase %> implements Lexer {
       currentLine = lineNumber;
       startCol = p - lastNewline;
     }
-    
+
     action begin_pystring_content {
       contentStart = p;
     }
@@ -131,7 +131,7 @@ public class <%= @i18n.underscored_iso_code.upcase %> implements Lexer {
       }
     }
 
-    include lexer_common "lexer_common.<%= @i18n.underscored_iso_code %>.rl"; 
+    include lexer_common "lexer_common.<%= @i18n.underscored_iso_code %>.rl";
   }%%
 
   private final Listener listener;

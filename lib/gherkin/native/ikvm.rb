@@ -7,8 +7,8 @@ class Class
     include m
   end
 
-  # Causes a .NET class to be instantiated instead of the Ruby class when 
-  # running on IronRuby. This is used to test both pure .NET and pure Ruby classes 
+  # Causes a .NET class to be instantiated instead of the Ruby class when
+  # running on IronRuby. This is used to test both pure .NET and pure Ruby classes
   # from the same Ruby based test suite. The .NET Class must have a package name
   # that corresponds with the Ruby class.
   def native_impl(lib)

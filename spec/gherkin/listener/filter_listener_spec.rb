@@ -8,20 +8,20 @@ require 'stringio'
 module Gherkin
   module Listener
     describe FilterListener do
-      
+
       class LineListener
         attr_reader :lines
-        
+
         def location(uri, offset)
         end
-        
+
         def method_missing(*sexp_args)
           @lines ||= []
           raise "Hmm" if sexp_args == [:eof, []]
           @lines << sexp_args[-1]
         end
       end
-      
+
       def verify_filters(expected_lines, filters)
         line_listener = LineListener.new
         scan(line_listener, filters)
@@ -147,7 +147,7 @@ Feature: 2
         it "should match tag of second scenario" do
           verify_filters([1,2,8,9,10,11,12,13,:eof], ['@tag8'])
         end
-        
+
         it "should return everything when a line is given in each scenario" do
           verify_filters([1,2,3,4,5,6,8,9,10,11,12,13,:eof], [6,9])
         end
@@ -160,7 +160,7 @@ Feature: 2
           verify_filters([1,2,3,4,5,6,:eof], [3])
         end
       end
-      
+
       context "Scenario with Background and Comment" do
         before do
           @input = %{#language:en
@@ -331,7 +331,7 @@ Feature: 3
   @d @f
   Examples: 14
     | foo | bar |
-    | 16  | 16  | 
+    | 16  | 16  |
     | 17  | 17  |
 
   Scenario: 19

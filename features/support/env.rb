@@ -22,12 +22,12 @@ end
 
 class GherkinWorld
   include TransformHelpers
-  
+
   def initialize
     @listener = Gherkin::SexpRecorder.new
   end
 end
 
-World do 
+World do
   GherkinWorld.new
 end

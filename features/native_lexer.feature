@@ -1,6 +1,6 @@
 Feature: Native (C/Java) Lexer
 
-  Background: 
+  Background:
     Given a "native" "root" parser
 
   Scenario: Parsing an empty feature

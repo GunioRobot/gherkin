@@ -51,7 +51,7 @@ module Gherkin
           ]
         end
 
-        it "should allow empty comment lines" do 
+        it "should allow empty comment lines" do
           scan("#\n   # A comment\n   #\n")
           @listener.to_sexp.should == [
             [:location, 'test.feature', 0],
@@ -61,10 +61,10 @@ module Gherkin
             [:eof]
           ]
         end
-        
+
         it "should not allow comments within the Feature description" do
-          lambda { 
-            scan("Feature: something\nAs a something\n# Comment\nI want something") 
+          lambda {
+            scan("Feature: something\nAs a something\n# Comment\nI want something")
             }.should raise_error(/Lexing error on line 4/)
         end
       end
@@ -80,7 +80,7 @@ module Gherkin
             [:scenario, "Scenario", "another", "", 5],
             [:eof]
           ]
-        end  
+        end
       end
 
       describe "Background" do
@@ -103,7 +103,7 @@ module Gherkin
             [:eof]
           ]
         end
-        
+
         it "should allow multiline names ending at eof" do
           scan("Background: I have several\n   Lines to look at\n None starting with Given")
           @listener.to_sexp.should == [
@@ -112,12 +112,12 @@ module Gherkin
             [:eof]
           ]
         end
-         
+
         it "should allow multiline names" do
           scan(%{Feature: Hi
-Background: It is my ambition to say 
+Background: It is my ambition to say
             in ten sentences
-            what others say 
+            what others say
             in a whole book.
 Given I am a step})
           @listener.to_sexp.should == [
@@ -139,7 +139,7 @@ Given I am a step})
             [:eof]
           ]
         end
- 
+
         it "should allow whitespace lines after the Scenario line" do
           scan(%{Scenario: bar
 
@@ -152,11 +152,11 @@ Given I am a step})
             [:eof]
           ]
         end
-        
+
         it "should allow multiline names" do
           scan(%{Scenario: It is my ambition to say
                           in ten sentences
-                          what others say 
+                          what others say
                           in a whole book.
                           Given I am a step
                           })
@@ -176,7 +176,7 @@ Given I am a step})
             [:eof]
           ]
         end
-  
+
         it "should ignore gherkin keywords embedded in other words" do
           scan(%{Scenario: I have a Button
           Buttons are great
@@ -191,7 +191,7 @@ Given I am a step})
             [:eof]
           ]
         end
-        
+
         it "should allow step keywords in Scenario names" do
           scan(%{Scenario: When I have when in scenario
           I should be fine
@@ -242,9 +242,9 @@ Given I am a step
         end
 
         it "should allow multiline description" do
-          scan(%{Scenario Outline: It is my ambition to say 
+          scan(%{Scenario Outline: It is my ambition to say
                           in ten sentences
-                          what others say 
+                          what others say
                           in a whole book.
                           Given I am a step
 
@@ -255,7 +255,7 @@ Given I am a step
             [:step, "Given ", "I am a step", 5],
             [:eof]
           ]
-        end        
+        end
       end
 
       describe "Examples" do
@@ -272,7 +272,7 @@ Given I am a step
             [:eof]
           ]
         end
-        
+
         it "should parse multiline example names" do
           scan(%{Examples: I'm a multiline name
                           and I'm ok
@@ -289,10 +289,10 @@ Given I am a step
           ]
         end
       end
-      
+
       describe "Steps" do
         it "should parse steps with inline table" do
-          scan(%{Given I have a table 
+          scan(%{Given I have a table
                           |a|b|
                           })
           @listener.to_sexp.should == [
@@ -302,7 +302,7 @@ Given I am a step
             [:eof]
           ]
         end
-        
+
         it "should parse steps with inline py_string" do
           scan("Given I have a string\n\"\"\"\nhello\nworld\n\"\"\"")
           @listener.to_sexp.should == [
@@ -313,7 +313,7 @@ Given I am a step
           ]
         end
       end
-            
+
       describe "A single feature, single scenario, single step" do
         it "should find the feature, scenario, and step" do
           scan("Feature: Feature Text\n  Scenario: Reading a Scenario\n    Given there is a step\n")
@@ -341,7 +341,7 @@ Given I am a step
       end
 
       describe "A single feature, single scenario, three steps" do
-        
+
         it "should find the feature, scenario, and three steps" do
           scan("Feature: Feature Text\n  Scenario: Reading a Scenario\n    Given there is a step\n    And another step\n   And a third step\n")
           @listener.to_sexp.should == [
@@ -375,7 +375,7 @@ Given I am a step
           ]
         end
       end
-      
+
       describe "A multi-line feature with no scenario" do
         it "should find the feature" do
           scan("Feature: Feature Text\n  And some more text")
@@ -412,7 +412,7 @@ Given I am a step
             [:eof]
           ]
         end
-        
+
         it "should find the feature and two scenarios without indentation" do
           scan("Feature: Feature Text\nScenario: Reading a Scenario\nGiven a step\nScenario: A second scenario\nGiven another step\n")
           @listener.to_sexp.should == [
@@ -447,18 +447,18 @@ Given I am a step
           scan_file("comments_in_table.feature")
           @listener.to_sexp.should == [
             [:location, 'comments_in_table.feature', 0],
-            [:feature, "Feature", "x", "", 1], 
-            [:scenario_outline, "Scenario Outline", "x", "", 3], 
-            [:step, "Then ", "x is <state>", 4], 
-            [:examples, "Examples", "", "", 6], 
-            [:row, ["state"], 7], 
-            [:comment, "# comment", 8], 
+            [:feature, "Feature", "x", "", 1],
+            [:scenario_outline, "Scenario Outline", "x", "", 3],
+            [:step, "Then ", "x is <state>", 4],
+            [:examples, "Examples", "", "", 6],
+            [:row, ["state"], 7],
+            [:comment, "# comment", 8],
             [:row, ["1"], 9],
             [:eof]
           ]
         end
       end
-      
+
       describe "A feature with tags everywhere" do
         it "should find the feature, scenario, step, and tags in the proper order" do
           scan_file("simple_with_tags.feature")
@@ -478,7 +478,7 @@ Given I am a step
             [:scenario, "Scenario", "Second", "", 11],
             [:eof]
           ]
-        end        
+        end
       end
 
       describe "Comment or tag between Feature elements where previous narrative starts with same letter as a keyword" do
@@ -494,7 +494,7 @@ Given I am a step
             [:eof]
           ]
         end
-      end   
+      end
 
       describe "A complex feature with tags, comments, multiple scenarios, and multiple steps and tables" do
         it "should find things in the right order" do
@@ -527,7 +527,7 @@ Given I am a step
             [:row, %w{g h}, 31],
             [:row, %w{e r}, 32],
             [:row, %w{k i}, 33],
-            [:row, ['n', ''], 34], 
+            [:row, ['n', ''], 34],
             [:step, "And ", "I am done testing these tables", 35],
             [:comment, "#Comment on line 29", 36],
             [:step, "Then ", "I am happy", 37],
@@ -537,9 +537,9 @@ Given I am a step
             [:step, "Then ", "crazy", 45],
             [:eof]
           ]
-        end        
+        end
       end
-      
+
       describe "Windows stuff" do
         it "should find things in the right order for CRLF features" do
           scan_file("dos_line_endings.feature")
@@ -571,7 +571,7 @@ Given I am a step
             [:row, %w{g h}, 31],
             [:row, %w{e r}, 32],
             [:row, %w{k i}, 33],
-            [:row, ['n', ''], 34], 
+            [:row, ['n', ''], 34],
             [:step, "And ", "I am done testing these tables", 35],
             [:comment, "#Comment on line 29", 36],
             [:step, "Then ", "I am happy", 37],
@@ -597,13 +597,13 @@ Given I am a step
 
       describe "errors" do
         it "should raise a Lexing error if an unparseable token is found" do
-          ["Some text\nFeature: Hi", 
+          ["Some text\nFeature: Hi",
             "Feature: Hi\nBackground:\nGiven something\nScenario A scenario",
             "Scenario: My scenario\nGiven foo\nAand bar\nScenario: another one\nGiven blah"].each do |text|
               lambda { scan(text) }.should raise_error(/Lexing error on line/)
           end
         end
-        
+
         it "should include the line number and context of the error" do
           lambda {
             scan("Feature: hello\nScenario: My scenario\nGiven foo\nAand blah\nHmmm wrong\nThen something something")

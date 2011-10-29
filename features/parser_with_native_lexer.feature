@@ -4,7 +4,7 @@ Feature: Gherkin Feature lexer/parser
   I want a feature lexer that uses a feature parser to
   make all the syntax decisions for me
 
-  Background: 
+  Background:
     Given a "native" "root" parser
 
   Scenario: Correctly formed feature
@@ -17,17 +17,17 @@ Feature: Gherkin Feature lexer/parser
         I want a cardboard box
         In order to transform the ennui of suburban life into something
           befitting my imagination
-        
-        Background: 
+
+        Background:
           Given I have a transmogrifier
           And I am a member of G.R.O.S.S
-        
+
         Scenario: Whoozit to whatzit transmogrification
           Given I have a whoozit
           When I put it in the transmogrifier
           And I press the "transmogrify" button
           Then I should have a whatzit
-      
+
         Scenario Outline: Imaginary Beings
           Given I have a <boring being>
           When I transmogrify it with the incantation:
@@ -35,13 +35,13 @@ Feature: Gherkin Feature lexer/parser
           ALAKAZAM!
           \"\"\"
           Then I should have an <exciting being>
-      
+
           Examples:
           | boring being | exciting being |
           | Sparrow      | Alicanto       |
           | Goldfish     | Baldanders     |
           | Cow          | Hsiao          |
-          
+
         Scenario: Sense of humor detection
           Given the following excerpt:
             \"\"\"
@@ -54,7 +54,7 @@ Feature: Gherkin Feature lexer/parser
             WOMAN:  Oh there you go, bringing class into it again.
             DENNIS:  That's what it's all about if only people would--
             ARTHUR:  Please, please good people.  I am in haste.  Who lives
-                in that castle?  
+                in that castle?
             \"\"\"
           When I read it
           Then I should be amused
@@ -67,7 +67,7 @@ Feature: Gherkin Feature lexer/parser
       Scenario: Bullying my way to the head of the line
         Given I am a big bully of a scenario
         Then I should be caught by the syntax police(y)
-      
+
       Feature: Too timid to stand up for myself
       """
     Then there should be parse errors on lines 1 through 3
@@ -80,7 +80,7 @@ Feature: Gherkin Feature lexer/parser
           Given a something
           @tag
           And something else
-          
+
       @foo
       Scenario: my scenario
         @tag
@@ -97,14 +97,14 @@ Feature: Gherkin Feature lexer/parser
       Feature: Antiques Roadshow
       Scenario Outline: Table
         Given a <foo>
-        Then a <bar>        
-        
+        Then a <bar>
+
       Examples:
         | foo | bar   |
         | 42  | towel |
         @hello
         | 1   | prime |
-        
+
       Scenario: Table arguments
         Given this step needs this table:
         | foo | bar |
@@ -119,27 +119,27 @@ Feature: Gherkin Feature lexer/parser
       """
         Feature: Documentation is fun
           Scenario Outline: With lots of docs
-            We need lots of embedded documentation for some reason 
+            We need lots of embedded documentation for some reason
             \"\"\" # Not interpreted as a pystring, just plain text
             Oh hai
             \"\"\"
-      
+
             La la la
-      
+
             Examples:
             | one | two |
             | foo | bar |
-      
+
             \"\"\"
             Oh Hello
             \"\"\"
-      
+
             # Body of the scenario outline starts below
-            Given <something> 
+            Given <something>
             And something <else>
-      
+
             # The real examples table
-            Examples: 
+            Examples:
             | something | else |
             | orange | apple |
       """
@@ -149,19 +149,19 @@ Feature: Gherkin Feature lexer/parser
     When the following text is parsed:
       """
       Feature: Outline Sample
-      
+
         Scenario: I have no steps
-      
+
         Scenario Outline: Test state
           Given <state> without a table
           Given <other_state> without a table
-      
+
           Examples: Rainbow colours
             | state   | other_state |
             | missing | passing     |
             | passing | passing     |
             | failing | passing     |
-          
+
           Examples: Only passing
             |  state   | other_state |
             | passing  | passing |
@@ -178,16 +178,16 @@ Feature: Gherkin Feature lexer/parser
             | cucumbers   | 10       |
             | strawberrys | 5        |
             | apricots    | 7        |
-      
+
           When I eat <number> <fruits> from the pantry
           Then I should have <left> <fruits> in the pantry
-      
+
           Examples:
             | number | fruits      | left |
             | 2      | cucumbers   | 8    |
             | 4      | strawberrys | 1    |
             | 2      | apricots    | 5    |
-      
+
         Scenario Outline: placeholder in a multiline string
           Given my shopping list
             \"\"\"
@@ -197,7 +197,7 @@ Feature: Gherkin Feature lexer/parser
             \"\"\"
               Must buy some cucumbers
             \"\"\"
-      
+
           Examples:
             | fruits    |
             | cucumbers |

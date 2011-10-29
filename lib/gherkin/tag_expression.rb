@@ -39,7 +39,7 @@ module Gherkin
         if limit
           tag_without_negation = negated ? tag_with_negation[1..-1] : tag_with_negation
           if @limits[tag_without_negation] && @limits[tag_without_negation] != limit.to_i
-            raise "Inconsistent tag limits for #{tag_without_negation}: #{@limits[tag_without_negation]} and #{limit.to_i}" 
+            raise "Inconsistent tag limits for #{tag_without_negation}: #{@limits[tag_without_negation]} and #{limit.to_i}"
           end
           @limits[tag_without_negation] = limit.to_i
         end
